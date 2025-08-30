@@ -11,8 +11,8 @@ This is an open-source AI exhibition assistant that leverages Qualcomm Snapdrago
 ## Team Composition
 
 EdgExpo Team is formed by participants from multiple organizations competing together:
-- **M4ORE** (from MOOOORE-MITSUSEN Group): Peggy, Anna
-- **Shuttle**: Mark, Anya  
+- **MOOOORE CO., LTD.** (from MOOOORE-MITSUSEN/M2 Group): Peggy, Anna
+- **Shuttle Inc.**: Mark, Anya  
 - **Shih Chien University AI Center**: Fei
 
 ## Problem Description
