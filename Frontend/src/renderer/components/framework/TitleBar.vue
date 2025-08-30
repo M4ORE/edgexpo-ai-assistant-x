@@ -4,32 +4,16 @@
       <!-- EdgeExpo AI Assistant X Logo and Title -->
       <v-img
         src="/src/assets/logo.png"
-        class="mr-2"
-        width="180"
+        width="110"
         height="auto"
       ></v-img>
-      <span class="app-title ml-4">EdgeExpo AI Assistant X</span>
-
-      <!-- System Status Indicators -->
-      <div class="status-indicators ml-6">
-        <v-chip
-          color="orange-lighten-4"
-          variant="flat"
-          size="small"
-          prepend-icon="mdi-circle"
-          class="mr-2"
-        >
-          <template v-slot:prepend>
-            <v-icon color="orange-darken-1" size="10" class="pulse-animation" />
-          </template>
-          System Running
-        </v-chip>
-
-        <v-chip color="orange-lighten-4" variant="flat" size="small">
-          Auto Mode
-        </v-chip>
-      </div>
+      <v-img
+        src="/src/assets/shuttle.webp"
+        width="140"
+        height="auto"
+      ></v-img>
     </div>
+    <span class="app-title ml-4 text-h5">EdgeExpo AI Assistant X</span>
 
     <div class="window-controls">
       <v-btn
