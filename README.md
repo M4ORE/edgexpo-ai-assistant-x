@@ -27,8 +27,8 @@ This leads to low exhibition efficiency and loss of potential business opportuni
 
 ## Use Cases
 
-- **Voice Interaction Workflow**: Visitor voice input → Edge ASR (Qualcomm AI Hub model) → Language recognition & translation (LLM) → Knowledge base search (product data) → Edge TTS response
-- **Business Card Processing Workflow**: Business card image input → Edge OCR (open-source or Qualcomm AI Hub model) → Data structuring → Local CRM/CSV storage
+- **Voice Interaction Workflow**: Visitor voice input → Edge ASR (Whisper-V3-Turbo from Qualcomm AI Hub model) → LLM: Language recognition & translation (Phi-3.5-mini instruct from Qualcomm AI Hub model) → Knowledge base search (FAISS/Chroma + Nomic-Embed-Text from Qualcomm AI Hub model) → Edge TTS response (edge-tts)
+- **Business Card Processing Workflow**: Business card image input → VLM: Qwen2.5-VL (open-source and inferenced by own computing infrastructure) → Data structuring → Local CRM/JSON storage → Send EDM (through Email)
 
 ## Project Directory Structure
 
