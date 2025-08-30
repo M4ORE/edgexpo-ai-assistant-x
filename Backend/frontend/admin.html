@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知識庫管理後台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #00d4ff;
+            --danger-color: #ff6b6b;
+            --success-color: #51cf66;
+            --bg-gradient-1: #0a0a0a;
+            --bg-gradient-2: #1a1a2e;
+            --bg-gradient-3: #16213e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 50%, var(--bg-gradient-3) 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .title {
+            font-size: 28px;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid var(--primary-color);
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .panel {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .panel-title {
+            font-size: 20px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 5px;
+            color: white;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: #000;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .knowledge-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .knowledge-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .knowledge-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .knowledge-item.active {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .knowledge-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .knowledge-item-title {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .knowledge-item-category {
+            font-size: 12px;
+            padding: 2px 8px;
+            background: rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .knowledge-item-content {
+            font-size: 14px;
+            color: #ccc;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--primary-color);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 212, 255, 0.3);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 30px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        .toast.success {
+            background: var(--success-color);
+        }
+
+        .toast.error {
+            background: var(--danger-color);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .file-upload input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 10px;
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px dashed var(--primary-color);
+            border-radius: 5px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .file-upload-label:hover {
+            background: rgba(0, 212, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🎯 知識庫管理後台</h1>
+            <a href="/" class="back-btn">返回主頁</a>
+        </div>
+
+        <div class="content">
+            <!-- 編輯區域 -->
+            <div class="panel">
+                <h2 class="panel-title">
+                    <span>📝</span>
+                    <span>編輯知識內容</span>
+                </h2>
+
+                <form id="knowledgeForm">
+                    <input type="hidden" id="itemId" value="">
+                    
+                    <div class="form-group">
+                        <label class="form-label">標題</label>
+                        <input type="text" class="form-input" id="itemTitle" placeholder="輸入知識標題">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">分類</label>
+                        <select class="form-select" id="itemCategory">
+                            <option value="company">公司介紹</option>
+                            <option value="product">產品資訊</option>
+                            <option value="qa">常見問答</option>
+                            <option value="general">一般資訊</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">內容</label>
+                        <textarea class="form-textarea" id="itemContent" placeholder="輸入知識內容..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">關鍵詞（用逗號分隔）</label>
+                        <input type="text" class="form-input" id="itemKeywords" placeholder="例如：功能,特性,價格">
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                        <button type="button" class="btn btn-success" id="newBtn">新增</button>
+                        <button type="button" class="btn btn-danger" id="deleteBtn">刪除</button>
+                    </div>
+                </form>
+
+                <hr style="margin: 30px 0; border-color: rgba(0, 212, 255, 0.3);">
+
+                <h3 class="panel-title">
+                    <span>📤</span>
+                    <span>批量導入</span>
+                </h3>
+
+                <div class="file-upload">
+                    <input type="file" id="fileUpload" accept=".json,.txt">
+                    <label for="fileUpload" class="file-upload-label">
+                        點擊上傳檔案 (支援 JSON/TXT)
+                    </label>
+                </div>
+            </div>
+
+            <!-- 知識列表 -->
+            <div class="panel">
+                <h2 class="panel-title">
+                    <span>📚</span>
+                    <span>知識庫列表</span>
+                </h2>
+
+                <div class="knowledge-list" id="knowledgeList">
+                    <!-- 動態生成的列表項目 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API配置
+        const API_BASE = '/api';
+        
+        // DOM元素
+        const form = document.getElementById('knowledgeForm');
+        const itemId = document.getElementById('itemId');
+        const itemTitle = document.getElementById('itemTitle');
+        const itemCategory = document.getElementById('itemCategory');
+        const itemContent = document.getElementById('itemContent');
+        const itemKeywords = document.getElementById('itemKeywords');
+        const knowledgeList = document.getElementById('knowledgeList');
+        const newBtn = document.getElementById('newBtn');
+        const deleteBtn = document.getElementById('deleteBtn');
+        const fileUpload = document.getElementById('fileUpload');
+        const loading = document.getElementById('loading');
+        const toast = document.getElementById('toast');
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadKnowledgeList();
+        });
+
+        // 載入知識列表
+        async function loadKnowledgeList() {
+            try {
+                showLoading();
+                const response = await fetch(`${API_BASE}/kb/list`);
+                const data = await response.json();
+                
+                renderKnowledgeList(data.items || []);
+            } catch (error) {
+                showToast('載入失敗：' + error.message, 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 渲染知識列表
+        function renderKnowledgeList(items) {
+            knowledgeList.innerHTML = '';
+            
+            if (items.length === 0) {
+                knowledgeList.innerHTML = '<div style="text-align: center; color: #666;">暫無知識內容</div>';
+                return;
+            }
+
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'knowledge-item';
+                div.dataset.id = item.id;
+                
+                div.innerHTML = `
+                    <div class="knowledge-item-header">
+                        <div class="knowledge-item-title">${item.title || '未命名'}</div>
+                        <div class="knowledge-item-category">${getCategoryName(item.category)}</div>
+                    </div>
+                    <div class="knowledge-item-content">${item.content}</div>
+                `;
+                
+                div.addEventListener('click', () => selectKnowledgeItem(item));
+                knowledgeList.appendChild(div);
+            });
+        }
+
+        // 選擇知識項目
+        function selectKnowledgeItem(item) {
+            // 更新選中狀態
+            document.querySelectorAll('.knowledge-item').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelector(`[data-id="${item.id}"]`).classList.add('active');
+
+            // 填充表單
+            itemId.value = item.id;
+            itemTitle.value = item.title || '';
+            itemCategory.value = item.category || 'general';
+            itemContent.value = item.content || '';
+            itemKeywords.value = (item.keywords || []).join(', ');
+        }
+
+        // 表單提交
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const data = {
+                id: itemId.value || generateId(),
+                title: itemTitle.value,
+                category: itemCategory.value,
+                content: itemContent.value,
+                keywords: itemKeywords.value.split(',').map(k => k.trim()).filter(k => k)
+            };
+
+            try {
+                showLoading();
+                const response = await fetch(`${API_BASE}/kb/update`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    showToast('保存成功', 'success');
+                    loadKnowledgeList();
+                } else {
+                    throw new Error('保存失敗');
+                }
+            } catch (error) {
+                showToast('保存失敗：' + error.message, 'error');
+            } finally {
+                hideLoading();
+            }
+        });
+
+        // 新增按鈕
+        newBtn.addEventListener('click', function() {
+            form.reset();
+            itemId.value = '';
+            document.querySelectorAll('.knowledge-item').forEach(el => {
+                el.classList.remove('active');
+            });
+        });
+
+        // 刪除按鈕
+        deleteBtn.addEventListener('click', async function() {
+            if (!itemId.value) {
+                showToast('請先選擇要刪除的項目', 'error');
+                return;
+            }
+
+            if (!confirm('確定要刪除這個知識項目嗎？')) {
+                return;
+            }
+
+            try {
+                showLoading();
+                const response = await fetch(`${API_BASE}/kb/delete?id=${itemId.value}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    showToast('刪除成功', 'success');
+                    form.reset();
+                    itemId.value = '';
+                    loadKnowledgeList();
+                } else {
+                    throw new Error('刪除失敗');
+                }
+            } catch (error) {
+                showToast('刪除失敗：' + error.message, 'error');
+            } finally {
+                hideLoading();
+            }
+        });
+
+        // 檔案上傳
+        fileUpload.addEventListener('change', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            try {
+                const content = await readFile(file);
+                let data;
+
+                if (file.name.endsWith('.json')) {
+                    data = JSON.parse(content);
+                } else {
+                    // 處理文字檔案
+                    data = parseTextFile(content);
+                }
+
+                // 批量導入
+                showLoading();
+                for (const item of data) {
+                    await fetch(`${API_BASE}/kb/update`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(item)
+                    });
+                }
+
+                showToast('批量導入成功', 'success');
+                loadKnowledgeList();
+            } catch (error) {
+                showToast('導入失敗：' + error.message, 'error');
+            } finally {
+                hideLoading();
+                fileUpload.value = '';
+            }
+        });
+
+        // 輔助函數
+        function getCategoryName(category) {
+            const names = {
+                'company': '公司介紹',
+                'product': '產品資訊',
+                'qa': '常見問答',
+                'general': '一般資訊'
+            };
+            return names[category] || category;
+        }
+
+        function generateId() {
+            return 'kb_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        function readFile(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = e => resolve(e.target.result);
+                reader.onerror = reject;
+                reader.readAsText(file);
+            });
+        }
+
+        function parseTextFile(content) {
+            // 簡單的文字檔案解析
+            const lines = content.split('\n').filter(line => line.trim());
+            const items = [];
+            let currentItem = null;
+
+            lines.forEach(line => {
+                if (line.startsWith('Q:') || line.startsWith('問：')) {
+                    if (currentItem) items.push(currentItem);
+                    currentItem = {
+                        id: generateId(),
+                        title: line.substring(2).trim(),
+                        category: 'qa',
+                        content: '',
+                        keywords: []
+                    };
+                } else if (line.startsWith('A:') || line.startsWith('答：')) {
+                    if (currentItem) {
+                        currentItem.content = line.substring(2).trim();
+                    }
+                } else if (currentItem) {
+                    currentItem.content += '\n' + line;
+                }
+            });
+
+            if (currentItem) items.push(currentItem);
+            return items;
+        }
+
+        function showLoading() {
+            loading.style.display = 'block';
+        }
+
+        function hideLoading() {
+            loading.style.display = 'none';
+        }
+
+        function showToast(message, type = 'success') {
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.style.display = 'block';
+
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+# Flask API Server Dependencies
+flask>=2.3.0
+requests>=2.31.0
+
+# Audio processing
+sounddevice
+scipy
+numpy
+
+# Whisper and QNN dependencies are installed separately in setup-stt-env.bat:
+# - onnxruntime-qnn==1.22.0
+# - qai-hub-models
+# - transformers

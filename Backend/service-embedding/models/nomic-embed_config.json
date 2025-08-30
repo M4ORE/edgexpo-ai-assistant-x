@@ -1,0 +1,8 @@
+{
+  "name": "nomic-embed",
+  "version": "1.5",
+  "sequence_length": 128,
+  "embedding_dim": 512,
+  "model_path": "models\\nomic_embed_text\\model.onnx",
+  "provider": "QNNExecutionProvider"
+}

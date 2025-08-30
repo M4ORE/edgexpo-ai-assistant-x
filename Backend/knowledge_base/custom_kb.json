@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "id": "qa_006",
+      "content": "問題：是否支援多語言？\n答案：是的，系統支援中文（簡體/繁體）兩種語言的語音識別和合成。語言可以根據需求進行配置。",
+      "category": ""
+    },
+    {
+      "id": "kb_1756514434106_nsuwn9mea",
+      "content": "What languages does the system support?\nChinese and Englsih",
+      "category": "company"
+    }
+  ]
+}

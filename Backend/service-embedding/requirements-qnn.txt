@@ -1,0 +1,1 @@
+# Embedding Service dependencies套件 - QNN 版本 # 如果你在Qualcomm 裝置上，using這個版本以獲得hardware acceleration # core深度學習框架 torch>=1.9.0 transformers>=4.20.0 numpy>=1.21.0 # API service框架 fastapi>=0.68.0 uvicorn[standard]>=0.15.0 pydantic>=1.8.0 # ONNXRuntime QNN (Qualcomm hardware acceleration) onnxruntime-qnn> # 可選套件 requests>=2.25.0 # 用於test script

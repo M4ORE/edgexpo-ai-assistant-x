@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+
+# Production build
+dist/
+dist_electron/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Project specific
+history/
+data/
+tests/output/
+
+# Python virtual environments (if needed)
+venv/
+*.pyc
+__pycache__/
+
+# SQLite databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Electron specific
+electron-builder.yml
+!electron-builder.json

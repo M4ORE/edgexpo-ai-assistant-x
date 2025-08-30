@@ -1,0 +1,20 @@
+# Embedding Service Dependencies
+# Core ML frameworks
+torch>=2.0.0,<2.5.0
+transformers>=4.30.0,<5.0.0
+numpy>=1.24.0,<2.0.0
+
+# API service framework
+fastapi>=0.100.0
+uvicorn[standard]>=0.20.0
+pydantic>=2.0.0
+
+# ONNX Runtime - compatible version
+onnxruntime>=1.15.0,<1.18.0
+
+# Optional packages
+requests>=2.28.0
+onnx>=1.14.0
+
+# Utilities
+sentence-transformers>=2.2.0
