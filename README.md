@@ -8,6 +8,16 @@ EdgExpo AI OpenSource Version
 
 This is an open-source AI exhibition assistant that leverages Qualcomm Snapdragon X Elite NPU for edge computing capabilities, solving language communication and customer management challenges in international exhibitions.
 
+## ⚠️ Important Notice (As of 2025.08.30)
+
+**Regarding Qualcomm NPU Error**
+
+According to [Microsoft official documentation](https://learn.microsoft.com/en-us/azure/ai-foundry/foundry-local/reference/reference-best-practice):
+
+> Qualcomm NPU error (Qnn error code 5005: "Failed to load from EpContext model. qnn_backend_manager.") Under investigation
+
+**Therefore, we recommend developing Qualcomm NPU-related applications after Qualcomm completes their investigation and fixes.**
+
 ## Team Composition
 
 EdgExpo Team is formed by participants from multiple organizations competing together:
