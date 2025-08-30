@@ -8,6 +8,13 @@ EdgExpo AI public/OpenSource Version
 
 This is an open-source AI exhibition assistant that leverages Qualcomm Snapdragon X Elite NPU for edge computing capabilities, solving language communication and customer management challenges in international exhibitions.
 
+## Team Composition
+
+EdgExpo Team is formed by participants from multiple organizations competing together:
+- **M4ORE** (from MOOOORE-MITSUSEN Group): Peggy, Anna
+- **Shuttle**: Mark, Anya  
+- **Shih Chien University AI Center**: Fei
+
 ## Problem Description
 
 In international exhibitions and business events, exhibitors often face:
