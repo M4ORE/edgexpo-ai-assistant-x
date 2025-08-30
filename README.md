@@ -1,5 +1,5 @@
 # edgexpo-ai-assistant-x
-EdgExpo AI public/OpenSource Version
+EdgExpo AI OpenSource Version
 
 > 🏆 **2025 Qualcomm Taiwan AI Hackathon Project**  
 > Competition URL: https://contest.bhuntr.com/tw/Qualcomm_TW_AIHackathon/home/

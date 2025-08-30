@@ -4,14 +4,14 @@
 
 - **Speech Processing**: Whisper → Snapdragon NPU with ONNX Runtime + QNN
 - **Text Recognition**: EasyOCR/TrOCR → Snapdragon NPU with ONNX Runtime + QNN  
-- **Large Language Model**: llama.cpp/ollama → Snapdragon CPU/GPU with OpenCL
+- **Large Language Model**: Phi-3.5-mini → Snapdragon NPU with ONNX Runtime + QNN
 - **Inference Backend**: ONNX Runtime + QNN/DirectML → Snapdragon NPU
 
 ## Environment Installation Steps
 
-### 1. Python 3.12 Installation (Windows)
+### 1. Python 3.12(x64) Installation (Windows)
 
-We recommend installing Python 3.12 from Microsoft Store for the best Windows integration experience:
+We recommend installing Python 3.12(x64) from Microsoft Store for the best Windows integration experience:
 
 1. Open **Microsoft Store**
 2. Search for **Python 3.12**
