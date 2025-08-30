@@ -33,7 +33,7 @@ EdgeExpo AI Assistant X is a distributed AI microservices backend system that pr
 - Supports batch processing
 - Core component of RAG system
 
-### LLM Service (Large Language Model) - Port 8910
+#### 5. **LLM Service** (Large Language Model) - Port 8910
 - Based on Genie model inference engine
 - Local LLM inference
 - QNN acceleration support
@@ -80,11 +80,11 @@ Backend/
 
 ### System Requirements
 
-- **Operating System**: Windows 10+ (primary support)
+- **Operating System**: Windows 11 (primary support)
 - **Python**: 3.12.x (x64 version)
-- **Memory**: 16GB+ RAM (recommended)
-- **Processor**: Intel/AMD x64 processor
-- **Storage**: At least 10GB available space
+- **Memory**: 32GB+ RAM (recommended)
+- **Processor**: Qualcomm X Series
+- **Storage**: At least 20GB available space
 
 ### Installation Methods
 
@@ -303,7 +303,7 @@ Configuration file locations for each service:
 | Service Type | Memory Requirements | Processor | Description |
 |--------------|-------------------|-----------|-------------|
 | Backend | 2-4GB | Standard CPU | Main business logic |
-| STT | 4-8GB | CPU/NPU | Whisper model inference |
+| STT | 4-8GB | NPU | Whisper model inference |
 | TTS | 2-4GB | Standard CPU | Edge-TTS engine |
 | Embedding | 4-6GB | CPU/NPU | Vector computation |
 | LLM | 8-16GB | NPU recommended | Large language model inference |
@@ -452,39 +452,10 @@ Consider containerizing microservices for better isolation and scalability
 ### Load Balancing
 For high-load scenarios, deploy multiple identical service instances and use load balancers to distribute requests
 
-## 📊 Performance Metrics
-
-### Performance Under Typical Hardware Configurations
-
-| Configuration | STT Latency | TTS Latency | LLM Response Time | Concurrent Support |
-|---------------|-------------|-------------|-------------------|-------------------|
-| 16GB RAM | <2s | <1s | 3-5s | 5-10 users |
-| 32GB RAM + NPU | <1s | <0.5s | 1-2s | 20-50 users |
-
-## 🤝 Contributing Guide
-
-Welcome to submit Issues and Pull Requests to improve this project!
-
-### Development Process
-1. Fork the project to your GitHub account
-2. Create feature branch (`git checkout -b feature/new-feature`)  
-3. Commit changes (`git commit -m 'Add: new feature description'`)
-4. Push to branch (`git push origin feature/new-feature`)
-5. Open Pull Request
-
-### Code Standards
-- Python code follows PEP 8 standards
-- Commit messages use clear Chinese/English descriptions
-- New features require corresponding tests and documentation
-
 ## 📄 License Information
 
-This project is licensed under the MIT License, see LICENSE file for details.
+This project is licensed under the Apache-2.0 License, see LICENSE file for details.
 
-## 🔗 Related Projects
-
-- **EdgeExpo AI Assistant X - Frontend**: Frontend user interface
-- **EdgeExpo AI Assistant X - Mobile**: Mobile application
 
 ## 🙏 Acknowledgments
 
@@ -503,7 +474,5 @@ This project uses the following open-source technologies:
 **EdgeExpo AI Assistant X Backend**
 
 *High Performance • Microservices • Local AI*
-
-Made with 💻 for Edge Computing
 
 </div>

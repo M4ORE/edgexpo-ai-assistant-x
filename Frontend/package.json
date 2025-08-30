@@ -29,7 +29,7 @@
     "dev:electron": "electron .",
     "dev": "cross-env NODE_ENV=development concurrently \"npm run dev:vue\" \"npm run dev:electron\"",
     "build:vue": "vite build",
-    "preview": "vite preview",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
